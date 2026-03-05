@@ -20,11 +20,26 @@ No instabilities were observed from these commands. You can verify these changes
 
 ⚠️ Warning both torch was built from sources provided by nvidia and 0.16  for torchvision was needed to get this to work.
 * `/models` - a few models taken from the tritonai repository that were used to test.
+* `/performance` - benchmark scripts that generate `CPU.txt`/`GPU.txt` timing data and plotting utilities for FPS analysis.
 * `/tests` - pre benchmark tests that should run without errors. If errors encountered in benchmark, make sure this is confirmed to work beforehand.
+
+## Usage
+1. Run CUDA/PyTorch sanity checks:
+   `python3 tests/torch_test.py`
+2. Run benchmark (writes `CPU.txt` and `GPU.txt`):
+   `python3 performance/benchmarkYOLO_cpu_min.py models/Nick_v1.1_yolo12_fast.pt --imgsz 160 --seconds 30`
+3. Generate FPS plots from benchmark outputs:
+   `python3 performance/gatherAndPlot.py`
 
 ## Benchmark results
 Three "platforms" were tested. The Jetson AGX Xavier(16GB)'s CPU, iGPU and the OAK-D Pro W Camera's accelerator (RVC2).
 
+### FPS Over Time
+![FPS Over Time](performance/plots/fps_over_time.png)
 
+### Average FPS
+![Average FPS](performance/plots/fps_average.png)
 
+### FPS Distribution
+![FPS Distribution](performance/plots/fps_distribution.png)
 
